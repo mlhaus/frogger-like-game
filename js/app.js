@@ -19,7 +19,14 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += this.speed * dt;
     // Updates the Enemy location (you need to implement)
+    // The width of the window is 505. When the enemy reaches
+    // the x value of 505, it goes back to the far left which
+    // is -101 because that is the width of the image
+    if(this.x >= 505) {
+      this.x = -101;
+    }
     // Handles collision with the Player (you need to implement)
 };
 
@@ -69,9 +76,9 @@ Player.prototype.handleInput = function(userInput) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 const allEnemies = [];
-let enemy1 = new Enemy(-101, 20, 100);
-let enemy2 = new Enemy(-101, 220, 100);
-let enemy3 = new Enemy(-101, 420, 100);
+let enemy1 = new Enemy(-101, 60, 200);
+let enemy2 = new Enemy(-101, 140, 300);
+let enemy3 = new Enemy(-101, 220, 400);
 allEnemies.push(enemy1);
 allEnemies.push(enemy2);
 allEnemies.push(enemy3);
