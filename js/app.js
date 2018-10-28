@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(x, y, speed) {
+var Enemy = function(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
@@ -10,7 +10,7 @@ var Enemy = function(x, y, speed) {
     this.x = x;
     this.y = y;
     // Setting the Enemy speed (you need to implement)
-    this.speed = speed;
+    this.speed = (Math.floor(Math.random() * 3) + 2) * 100; // generates random number 200, 300 or 400
 };
 
 // Update the enemy's position, required method for game
@@ -26,6 +26,7 @@ Enemy.prototype.update = function(dt) {
     // is -101 because that is the width of the image
     if(this.x >= 505) {
       this.x = -101;
+      this.speed = (Math.floor(Math.random() * 3) + 2) * 100;
     }
     // Handles collision with the Player (you need to implement)
 };
@@ -76,9 +77,9 @@ Player.prototype.handleInput = function(userInput) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 const allEnemies = [];
-let enemy1 = new Enemy(-101, 60, 200);
-let enemy2 = new Enemy(-101, 140, 300);
-let enemy3 = new Enemy(-101, 220, 400);
+let enemy1 = new Enemy(-101, 60); // y=60 is top row
+let enemy2 = new Enemy(-101, 140); // y=140 is middle row
+let enemy3 = new Enemy(-101, 220); // y=220 is bottom row
 allEnemies.push(enemy1);
 allEnemies.push(enemy2);
 allEnemies.push(enemy3);
