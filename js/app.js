@@ -46,14 +46,13 @@ Enemy.prototype.checkCollisions = function() {
 var Player = function() {
   this.sprite = 'images/char-boy.png';
   // Setting the Player initial location (you need to implement)
+  this.x = 202; // Image width is 101, doubling it puts the player in the middle of the screen
+  this.y = 300;
 };
 
 // Update the players's position, required method for game
 // Parameter: dt, a time delta between ticks
 Player.prototype.update = function(dt) {
-  // You should multiply any movement by the dt parameter
-  // which will ensure the game runs at the same speed for
-  // all computers.
   // Updates the Player location (you need to implement)
   // Handles collision with the Enemy (you need to implement)
 };
@@ -69,6 +68,24 @@ Player.prototype.resetPlayer = function() {
 
 Player.prototype.handleInput = function(userInput) {
   // Left key should move the player to the left, right key to the right, up should move the player up and down should move the player down
+  let upDown = 42.75; // One-Fourth the height of each image tile
+  let leftRight = 50.5; // Half the width of each image tile
+  switch(userInput){
+    case 'left':
+      this.x -= leftRight; 
+      break;    
+    case 'up':
+      this.y -= upDown;
+      break;
+    case 'right':
+      this.x += leftRight;
+      break;
+    case 'down':
+      this.y += upDown;
+      break;
+    default: 
+
+  }
   // Recall that the player cannot move off screen (so you will need to check for that and handle appropriately)
   // If the player reaches the water the game should be reset by moving the player back to the initial location (you can write a separate reset Player method to handle that)
 };
