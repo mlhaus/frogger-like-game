@@ -72,16 +72,16 @@ Player.prototype.handleInput = function(userInput) {
   let leftRight = 50.5; // Half the width of each image tile
   switch(userInput){
     case 'left':
-      this.x -= leftRight; 
+      this.x > 0 ? this.x -= leftRight : this.x -=0;
       break;    
     case 'up':
-      this.y -= upDown;
+      this.y > 0 ? this.y -= upDown : this.y -= 0;
       break;
     case 'right':
-      this.x += leftRight;
+      this.x < 505 - 101 ? this.x += leftRight : this.x +=0;
       break;
     case 'down':
-      this.y += upDown;
+      this.y < 606 - 171 * 1.5 ? this.y += upDown : this.y += 0;
       break;
     default: 
 
