@@ -10,7 +10,10 @@ var Enemy = function(x, y) {
     this.x = x;
     this.y = y;
     // Setting the Enemy speed (you need to implement)
-    this.speed = (Math.floor(Math.random() * 3) + 2) * 100; // generates random number 200, 300 or 400
+    // this.speed = (Math.floor(Math.random() * 3) + 2) * 100; // generates random number 200, 300 or 400
+    this.speed = 50;
+    this.width = 101;
+    this.height = 171;
 };
 
 // Update the enemy's position, required method for game
@@ -29,6 +32,14 @@ Enemy.prototype.update = function(dt) {
       this.speed = (Math.floor(Math.random() * 3) + 2) * 100;
     }
     // Handles collision with the Player (you need to implement)
+    // 2D Collison detection algorithm from Mozilla MDN
+    // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+    if(this.x < player.x + player.width &&
+      this.x + this.width > player.x &&
+      this.y < player.y + player.height &&
+      this.y + this.height > player.y) {
+        alert('ouch');
+    }
 };
 
 // Draw the enemy on the screen, required method for game
@@ -48,6 +59,8 @@ var Player = function() {
   // Setting the Player initial location (you need to implement)
   this.x = 202; // Image width is 101, doubling it puts the player in the middle of the screen
   this.y = 300;
+  this.width = 101;
+  this.height = 171;
 };
 
 // Update the players's position, required method for game
@@ -94,11 +107,11 @@ Player.prototype.handleInput = function(userInput) {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 const allEnemies = [];
-let enemy1 = new Enemy(-101, 60); // y=60 is top row
-let enemy2 = new Enemy(-101, 140); // y=140 is middle row
-let enemy3 = new Enemy(-101, 220); // y=220 is bottom row
-allEnemies.push(enemy1);
-allEnemies.push(enemy2);
+let enemy1 = new Enemy(-101, 43.5); // top row
+let enemy2 = new Enemy(-101, 129); // middle row
+let enemy3 = new Enemy(-101, 214.5); // bottom row
+// allEnemies.push(enemy1);
+// allEnemies.push(enemy2);
 allEnemies.push(enemy3);
 let player = new Player();
 
