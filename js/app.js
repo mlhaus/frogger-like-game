@@ -5,15 +5,14 @@ var Enemy = function(x, y) {
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug-blue.png';
+    this.sprite = 'images/enemy-bug.png';
     // Setting the Enemy initial location (you need to implement)
     this.x = x;
     this.y = y;
     // Setting the Enemy speed (you need to implement)
-    // this.speed = (Math.floor(Math.random() * 3) + 2) * 100; // generates random number 200, 300 or 400
-    this.speed = 50;
-    this.width = 101;
-    this.height = 171;
+    this.speed = (Math.floor(Math.random() * 3) + 2) * 100; // generates random number 200, 300 or 400
+    this.width = 60;
+    this.height = 40;
 };
 
 // Update the enemy's position, required method for game
@@ -55,12 +54,12 @@ Enemy.prototype.checkCollisions = function() {
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-  this.sprite = 'images/char-boy-green.png';
+  this.sprite = 'images/char-boy.png';
   // Setting the Player initial location (you need to implement)
   this.x = 202; // Image width is 101, doubling it puts the player in the middle of the screen
   this.y = 300;
-  this.width = 101;
-  this.height = 171;
+  this.width = 80;
+  this.height = 25;
 };
 
 // Update the players's position, required method for game
@@ -110,8 +109,8 @@ const allEnemies = [];
 let enemy1 = new Enemy(-101, 43.5); // top row
 let enemy2 = new Enemy(-101, 129); // middle row
 let enemy3 = new Enemy(-101, 214.5); // bottom row
-// allEnemies.push(enemy1);
-// allEnemies.push(enemy2);
+allEnemies.push(enemy1);
+allEnemies.push(enemy2);
 allEnemies.push(enemy3);
 let player = new Player();
 
