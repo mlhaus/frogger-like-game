@@ -46,7 +46,10 @@ Enemy.prototype.checkCollisions = function() {
     this.x + this.width > player.x &&
     this.y < player.y + player.height &&
     this.y + this.height > player.y) {
-      alert('ouch');
+      player.resetPlayer(1);
+  }
+  if(player.y < 0) {
+    player.resetPlayer(2);
   }
 };
 
@@ -59,7 +62,7 @@ var Player = function() {
   this.x = 202; // Image width is 101, doubling it puts the player in the middle of the screen
   this.y = 300;
   this.width = 80;
-  this.height = 25;
+  this.height = 50;
 };
 
 // Update the players's position, required method for game
@@ -74,23 +77,29 @@ Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.resetPlayer = function() {
-  
+Player.prototype.resetPlayer = function(code) {
+  if(code === 1) {
+    alert('Ouch!');
+  } else if (code === 2) {
+    alert('You reached the water!');
+  }
+  this.x = 202;
+  this.y = 300;
 };
 
 Player.prototype.handleInput = function(userInput) {
   // Left key should move the player to the left, right key to the right, up should move the player up and down should move the player down
-  let upDown = 42.75; // One-Fourth the height of each image tile
+  let upDown = 85.5; // One-half the height of each image tile
   let leftRight = 50.5; // Half the width of each image tile
   switch(userInput){
     case 'left':
-      this.x > 0 ? this.x -= leftRight : this.x -=0;
+      this.x > 0 ? this.x -= leftRight : this.x -= 0;
       break;    
     case 'up':
       this.y > 0 ? this.y -= upDown : this.y -= 0;
       break;
     case 'right':
-      this.x < 505 - 101 ? this.x += leftRight : this.x +=0;
+      this.x < 505 - 101 ? this.x += leftRight : this.x += 0;
       break;
     case 'down':
       this.y < 606 - 171 * 1.5 ? this.y += upDown : this.y += 0;
@@ -105,6 +114,7 @@ Player.prototype.handleInput = function(userInput) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
+let player = new Player();
 const allEnemies = [];
 let enemy1 = new Enemy(-101, 43.5); // top row
 let enemy2 = new Enemy(-101, 129); // middle row
@@ -112,7 +122,7 @@ let enemy3 = new Enemy(-101, 214.5); // bottom row
 allEnemies.push(enemy1);
 allEnemies.push(enemy2);
 allEnemies.push(enemy3);
-let player = new Player();
+
 
 
 // This listens for key presses and sends the keys to your
