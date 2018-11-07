@@ -1,40 +1,37 @@
 // Enemies our player must avoid
 var Enemy = function(x, y) {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    // The image/sprite for our enemies
     this.sprite = 'images/enemy-bug.png';
-    // Setting the Enemy initial location (you need to implement)
+    // Setting the Enemy initial location
     this.x = x;
     this.y = y;
-    // Setting the Enemy speed (you need to implement)
+    // Setting the Enemy speed 
     this.speed = (Math.floor(Math.random() * 3) + 2) * 100; // generates random number 200, 300 or 400
+    // Used for collision detection. Values set by trial-and-error
     this.width = 60;
     this.height = 40;
 };
 
-// Update the enemy's position, required method for game
+// Update the enemy's position
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
     this.x += this.speed * dt;
-    // Updates the Enemy location (you need to implement)
-    // The width of the window is 505. When the enemy reaches
+    // Updates the Enemy location
+    // Since the width of the window is 505, when the enemy reaches
     // the x value of 505, it goes back to the far left which
     // is -101 because that is the width of the image
     if(this.x >= 505) {
       this.x = -101;
-      this.speed = (Math.floor(Math.random() * 3) + 2) * 100;
+      this.speed = (Math.floor(Math.random() * 3) + 2) * 100; // generates random number 200, 300 or 400
     }
-    // Handles collision with the Player (you need to implement)
+    // Checks collision with the Player
     this.checkCollisions();
 };
 
-// Draw the enemy on the screen, required method for game
+// Draw the enemy on the screen
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
@@ -48,28 +45,22 @@ Enemy.prototype.checkCollisions = function() {
     this.y + this.height > player.y) {
       player.resetPlayer(1);
   }
+  // If the player reaches the water the game resets by moving the player back to the initial location
   if(player.y < 0) {
     player.resetPlayer(2);
   }
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
+// Player class
 var Player = function() {
+  // The image/sprite for our player
   this.sprite = 'images/char-boy.png';
-  // Setting the Player initial location (you need to implement)
-  this.x = 202; // Image width is 101, doubling it puts the player in the middle of the screen
+  // Setting the Player initial location
+  this.x = 202; // Puts the player in the middle of the screen horizontally
   this.y = 300;
+  // Used for collision detection. Values set by trial-and-error
   this.width = 80;
   this.height = 50;
-};
-
-// Update the players's position, required method for game
-// Parameter: dt, a time delta between ticks
-Player.prototype.update = function(dt) {
-  // Updates the Player location (you need to implement)
-  // Handles collision with the Enemy (you need to implement)
 };
 
 // Draw the player on the screen, required method for game
@@ -88,30 +79,29 @@ Player.prototype.resetPlayer = function(code) {
 };
 
 Player.prototype.handleInput = function(userInput) {
-  // Left key should move the player to the left, right key to the right, up should move the player up and down should move the player down
   let upDown = 85.5; // One-half the height of each image tile
   let leftRight = 50.5; // Half the width of each image tile
   switch(userInput){
+    // moves the player to the left, but not off screen
     case 'left':
       this.x > 0 ? this.x -= leftRight : this.x -= 0;
-      break;    
+      break;
+    // moves the player up, but not past the water
     case 'up':
       this.y > 0 ? this.y -= upDown : this.y -= 0;
       break;
+    // moves the player to the right, but not off screen
     case 'right':
       this.x < 505 - 101 ? this.x += leftRight : this.x += 0;
       break;
+    // moves the player down, but not off screen
     case 'down':
       this.y < 606 - 171 * 1.5 ? this.y += upDown : this.y += 0;
       break;
-    default: 
-
   }
-  // Recall that the player cannot move off screen (so you will need to check for that and handle appropriately)
-  // If the player reaches the water the game should be reset by moving the player back to the initial location (you can write a separate reset Player method to handle that)
 };
 
-// Now instantiate your objects.
+// Instantiates objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 let player = new Player();
@@ -125,8 +115,7 @@ allEnemies.push(enemy3);
 
 
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+// This listens for key presses and sends the keys to the Player.handleInput() method. 
 document.addEventListener('keyup', function(e) {
     var allowedKeys = {
         37: 'left',
