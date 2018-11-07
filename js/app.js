@@ -31,14 +31,7 @@ Enemy.prototype.update = function(dt) {
       this.speed = (Math.floor(Math.random() * 3) + 2) * 100;
     }
     // Handles collision with the Player (you need to implement)
-    // 2D Collison detection algorithm from Mozilla MDN
-    // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
-    if(this.x < player.x + player.width &&
-      this.x + this.width > player.x &&
-      this.y < player.y + player.height &&
-      this.y + this.height > player.y) {
-        alert('ouch');
-    }
+    this.checkCollisions();
 };
 
 // Draw the enemy on the screen, required method for game
@@ -47,7 +40,14 @@ Enemy.prototype.render = function() {
 };
 
 Enemy.prototype.checkCollisions = function() {
-  
+  // 2D Collison detection algorithm from Mozilla MDN
+  // https://developer.mozilla.org/en-US/docs/Games/Techniques/2D_collision_detection
+  if(this.x < player.x + player.width &&
+    this.x + this.width > player.x &&
+    this.y < player.y + player.height &&
+    this.y + this.height > player.y) {
+      alert('ouch');
+  }
 };
 
 // Now write your own player class
